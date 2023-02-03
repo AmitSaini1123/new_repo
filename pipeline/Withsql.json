@@ -12,7 +12,7 @@
 						"value": "@activity('Copy data2_copy1').output",
 						"type": "Expression"
 					},
-					"isSequential": true,
+					"isSequential": false,
 					"activities": [
 						{
 							"name": "Copy data2_copy1",
