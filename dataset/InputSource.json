@@ -1,0 +1,48 @@
+{
+	"name": "InputSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLSLinkedServices",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Source": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().Source",
+					"type": "Expression"
+				},
+				"fileSystem": "folderinput"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "first_name",
+				"type": "String"
+			},
+			{
+				"name": "last_name",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			}
+		]
+	}
+}
