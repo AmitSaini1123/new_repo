@@ -17,10 +17,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": {
-							"value": "@Select TableName,WaterMarkValue from dbo.watermarktable WHERE TableName = '@{pipeline().parameters.TableName}'",
-							"type": "Expression"
-						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -87,7 +83,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * FROM @{pipeline().parameters.TableName} where @{pipeline().parameters.WaterMarkColumn} >'@{activity('LKP_OldWaterMarkValue').output.firstRow.WaterMarkValue}'\nand @{pipeline().parameters.WaterMarkColumn} <= '@{activity('LKP_NewWaterMarkValue').output.firstRow.NewWaterMarkValue}'\n",
+							"value": "select * FROM @{pipeline().parameters.TableName} where @{pipeline().parameters.WaterMarkColumn} > '@{activity('LKP_OldWaterMarkValue').output.firstRow.WaterMarkValue}'\nand @{pipeline().parameters.WaterMarkColumn} <= '@{activity('LKP_NewWaterMarkValue').output.firstRow.NewWaterMarkValue}'\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
