@@ -17,6 +17,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "@Select TableName,WaterMarkValue from dbo.watermarktable WHERE TableName = '@{pipeline().parameters.TableName}'",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -41,7 +45,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT MAX(InsertDateTime) AS NewWaterMarkValue FROM orders",
+						"sqlReaderQuery": {
+							"value": "SELECT MAX(@{pipeline().parameters.WaterMarkColumn}) AS NewWaterMarkValue FROM @{pipeline().parameters.TableName}",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -80,7 +87,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * FROM dbo.orders where InsertDateTime >'@{activity('LKP_OldWaterMarkValue').output.firstRow.WaterMarkValue}'\nand InsertDateTime <= '@{activity('LKP_NewWaterMarkValue').output.firstRow.NewWaterMarkValue}'\n",
+							"value": "select * FROM @{pipeline().parameters.TableName} where @{pipeline().parameters.WaterMarkColumn} >'@{activity('LKP_OldWaterMarkValue').output.firstRow.WaterMarkValue}'\nand @{pipeline().parameters.WaterMarkColumn} <= '@{activity('LKP_NewWaterMarkValue').output.firstRow.NewWaterMarkValue}'\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -110,7 +117,13 @@
 				"outputs": [
 					{
 						"referenceName": "Final_store_orders",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@pipeline().parameters.TableName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -158,6 +171,14 @@
 				}
 			}
 		],
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			},
+			"WaterMarkColumn": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
