@@ -3,43 +3,11 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [
-				{
-					"dataset": {
-						"referenceName": "Dataflow_1",
-						"type": "DatasetReference"
-					},
-					"name": "source1"
-				},
-				{
-					"dataset": {
-						"referenceName": "dataflow_2",
-						"type": "DatasetReference"
-					},
-					"name": "source2"
-				}
-			],
+			"sources": [],
 			"sinks": [],
 			"transformations": [],
 			"scriptLines": [
-				"source(output(",
-				"          id as string,",
-				"          first_name as string,",
-				"          last_name as string,",
-				"          Country as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source(output(",
-				"          id as string,",
-				"          first_name as string,",
-				"          last_name as string,",
-				"          Country as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source2"
+				""
 			]
 		}
 	}
