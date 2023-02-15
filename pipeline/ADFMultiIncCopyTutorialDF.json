@@ -60,7 +60,6 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
-									"sqlReaderQuery": "select * from watermarktable1 where TableName  =  '@{item().TableName}'\n",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
@@ -68,7 +67,7 @@
 									"referenceName": "SourceOrderDataSet",
 									"type": "DatasetReference"
 								},
-								"firstRowOnly": true
+								"firstRowOnly": false
 							}
 						},
 						{
