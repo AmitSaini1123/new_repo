@@ -93,7 +93,7 @@
 									"referenceName": "SourceOrderDataSet",
 									"type": "DatasetReference"
 								},
-								"firstRowOnly": false
+								"firstRowOnly": true
 							}
 						},
 						{
