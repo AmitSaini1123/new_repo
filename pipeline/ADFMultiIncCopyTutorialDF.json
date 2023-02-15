@@ -121,7 +121,16 @@
 								"secureOutput": false,
 								"secureInput": false
 							},
-							"userProperties": [],
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "dbo.ConfigurationTable1"
+								},
+								{
+									"name": "Destination",
+									"value": "dbo.@{item().TableName}"
+								}
+							],
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
