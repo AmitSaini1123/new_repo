@@ -60,14 +60,15 @@
 							"typeProperties": {
 								"source": {
 									"type": "AzureSqlSource",
+									"sqlReaderQuery": "select * from watermarktable1 where tableName  = '@{item().TableName}'\n\n\n",
 									"queryTimeout": "02:00:00",
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "SourceOrderDataSet",
+									"referenceName": "WatermarkDatasetDest",
 									"type": "DatasetReference"
 								},
-								"firstRowOnly": false
+								"firstRowOnly": true
 							}
 						},
 						{
@@ -90,14 +91,14 @@
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "WatermarkDatasetDest",
+									"referenceName": "SourceOrderDataSet",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": true
 							}
 						},
 						{
-							"name": "Copy data1",
+							"name": "IncrementalCopyActivity",
 							"type": "Copy",
 							"dependsOn": [
 								{
@@ -125,7 +126,7 @@
 								"source": {
 									"type": "AzureSqlSource",
 									"sqlReaderQuery": {
-										"value": "select * from @{item().TableName} where @{item().WaterMarkColumn} > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}'\n and @{item().WaterMarkColumn} <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
+										"value": "select * from @{item().TableName} where @{item().WaterMarkColumn} > '@{activity('LookupOldWaterMarkActivity').output.firstRow.WatermarkValue}' \nand @{item().WaterMarkColumn} <= '@{activity('LookupNewWaterMarkActivity').output.firstRow.NewWatermarkvalue}'",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -181,7 +182,7 @@
 							"type": "SqlServerStoredProcedure",
 							"dependsOn": [
 								{
-									"activity": "Copy data1",
+									"activity": "IncrementalCopyActivity",
 									"dependencyConditions": [
 										"Succeeded"
 									]
