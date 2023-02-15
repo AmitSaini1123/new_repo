@@ -1,0 +1,25 @@
+{
+	"name": "ConfigurationTableSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDBLinkedServices",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "TableName",
+				"type": "nvarchar"
+			},
+			{
+				"name": "WaterMarkColumn",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ConfigurationTable1"
+		}
+	}
+}
