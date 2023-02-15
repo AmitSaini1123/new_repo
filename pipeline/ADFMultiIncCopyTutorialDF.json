@@ -65,9 +65,10 @@
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "WatermarkDatasetDest",
+									"referenceName": "SourceOrderDataSet",
 									"type": "DatasetReference"
-								}
+								},
+								"firstRowOnly": false
 							}
 						},
 						{
@@ -90,7 +91,7 @@
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "SourceOrderDataSet",
+									"referenceName": "WatermarkDatasetDest",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": true
