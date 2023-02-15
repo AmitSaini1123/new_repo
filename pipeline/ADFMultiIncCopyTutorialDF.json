@@ -91,7 +91,7 @@
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "SourceOrderDataSet",
+									"referenceName": "ConfigurationTableSource",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": true
@@ -160,7 +160,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "SourceOrderDataSet",
+									"referenceName": "ConfigurationTableSource",
 									"type": "DatasetReference"
 								}
 							],
